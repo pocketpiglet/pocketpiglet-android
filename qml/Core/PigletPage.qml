@@ -840,25 +840,16 @@ Item {
         dataRate: 10
         active:   pigletPage.appInForeground && pigletPage.pageActive
 
-        property real lastReadingX: 0.0
-        property real lastReadingY: 0.0
-        property real lastReadingZ: 0.0
-
         onReadingChanged: {
-            if ((lastReadingX !== 0.0 || lastReadingY !== 0.0 || lastReadingZ !== 0.0) &&
-                (Math.abs(reading.x - lastReadingX) > pigletPage.accelShakeThreshold ||
-                 Math.abs(reading.y - lastReadingY) > pigletPage.accelShakeThreshold ||
-                 Math.abs(reading.z - lastReadingZ) > pigletPage.accelShakeThreshold)) {
+            if (Math.abs(reading.x) > pigletPage.accelShakeThreshold ||
+                Math.abs(reading.y) > pigletPage.accelShakeThreshold ||
+                Math.abs(reading.z) > pigletPage.accelShakeThreshold) {
                 if (!pigletPage.isAnimationActive("piglet_falls") && pigletPage.nextAnimation !== "piglet_falls") {
                     pigletPage.nextAnimation = "piglet_falls";
 
                     pigletPage.performAnimation();
                 }
             }
-
-            lastReadingX = reading.x;
-            lastReadingY = reading.y;
-            lastReadingZ = reading.z;
         }
     }
 
