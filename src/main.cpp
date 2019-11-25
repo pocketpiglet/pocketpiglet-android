@@ -5,9 +5,10 @@
 #include <QtQml/QQmlApplicationEngine>
 #include <QtQml/QQmlContext>
 #include <QtQuickControls2/QQuickStyle>
+#include <QtAndroidExtras/QtAndroid>
 
 #include "speechrecorder.h"
-#include "storehelper.h"
+#include "uihelper.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,11 +23,13 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    engine.rootContext()->setContextProperty(QStringLiteral("StoreHelper"), &StoreHelper::GetInstance());
+    engine.rootContext()->setContextProperty(QStringLiteral("UIHelper"), &UIHelper::GetInstance());
 
     QQuickStyle::setStyle(QStringLiteral("Default"));
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+
+    QtAndroid::hideSplashScreen();
 
     if (engine.rootObjects().isEmpty()) {
         return -1;

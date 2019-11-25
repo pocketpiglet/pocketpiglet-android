@@ -824,10 +824,6 @@ Item {
     NewDiamondsDialog {
         id: newDiamondsDialog
         z:  1
-
-        onOk: {
-            StoreHelper.requestReview();
-        }
     }
 
     ParentalGateDialog {
