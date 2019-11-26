@@ -16,7 +16,6 @@ class SpeechRecorder : public QObject
     Q_OBJECT
 
     Q_PROPERTY(bool    active               READ active               WRITE setActive               NOTIFY activeChanged)
-    Q_PROPERTY(int     sampleRate           READ sampleRate           WRITE setSampleRate           NOTIFY sampleRateChanged)
     Q_PROPERTY(int     minVoiceDuration     READ minVoiceDuration     WRITE setMinVoiceDuration     NOTIFY minVoiceDurationChanged)
     Q_PROPERTY(int     minSilenceDuration   READ minSilenceDuration   WRITE setMinSilenceDuration   NOTIFY minSilenceDurationChanged)
     Q_PROPERTY(qreal   volume               READ volume               WRITE setVolume               NOTIFY volumeChanged)
@@ -38,9 +37,6 @@ public:
     bool active() const;
     void setActive(bool active);
 
-    int sampleRate() const;
-    void setSampleRate(int sample_rate);
-
     int minVoiceDuration() const;
     void setMinVoiceDuration(int duration);
 
@@ -60,7 +56,6 @@ private slots:
 
 signals:
     void activeChanged(bool active);
-    void sampleRateChanged(int sampleRate);
     void minVoiceDurationChanged(int minVoiceDuration);
     void minSilenceDurationChanged(int minSilenceDuration);
     void volumeChanged(qreal volume);
@@ -82,8 +77,8 @@ private:
     void SaveVoice();
 
     bool                         Active, VoiceDetected;
-    int                          SampleRate, MinVoiceDuration,
-                                 MinSilenceDuration, SilenceSize;
+    int                          MinVoiceDuration, MinSilenceDuration,
+                                 SilenceSize;
     qreal                        Volume, SampleRateMultiplier;
     QString                      VoiceFilePath;
     QByteArray                   AudioBuffer, VoiceBuffer;

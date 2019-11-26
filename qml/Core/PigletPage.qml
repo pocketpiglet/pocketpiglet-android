@@ -183,7 +183,6 @@ Item {
     SpeechRecorder {
         id:                   speechRecorder
         volume:               1.0
-        sampleRate:           16000
         sampleRateMultiplier: 1.5
         minVoiceDuration:     500
         minSilenceDuration:   100
