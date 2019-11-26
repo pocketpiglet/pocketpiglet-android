@@ -264,30 +264,32 @@ Item {
             id:               pigletIdleImage
             anchors.centerIn: parent
             z:                5
-            width:            parent.width
-            height:           parent.height
+            width:            Math.floor(imageWidth(sourceSize.width, sourceSize.height, parent.width, parent.height))
+            height:           Math.floor(imageHeight(sourceSize.width, sourceSize.height, parent.width, parent.height))
             source:           "qrc:/resources/images/piglet/piglet_idle.jpg"
-            fillMode:         Image.PreserveAspectCrop
+            fillMode:         Image.Stretch
 
-            property bool geometrySettled: false
-
-            onPaintedWidthChanged: {
-                if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                    geometrySettled = true;
-
-                    width    = paintedWidth;
-                    height   = paintedHeight;
-                    fillMode = Image.Stretch;
+            function imageWidth(src_width, src_height, dst_width, dst_height) {
+                if (src_width > 0 && src_height > 0 && dst_width > 0 && dst_height > 0) {
+                    if (dst_width / dst_height < src_width / src_height) {
+                        return src_width * dst_height / src_height;
+                    } else {
+                        return dst_width;
+                    }
+                } else {
+                    return 0;
                 }
             }
 
-            onPaintedHeightChanged: {
-                if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                    geometrySettled = true;
-
-                    width    = paintedWidth;
-                    height   = paintedHeight;
-                    fillMode = Image.Stretch;
+            function imageHeight(src_width, src_height, dst_width, dst_height) {
+                if (src_width > 0 && src_height > 0 && dst_width > 0 && dst_height > 0) {
+                    if (dst_width / dst_height < src_width / src_height) {
+                        return dst_height;
+                    } else {
+                        return src_height * dst_width / src_width;
+                    }
+                } else {
+                    return 0;
                 }
             }
         }
@@ -470,40 +472,18 @@ Item {
             id:               pigletListensImage
             anchors.centerIn: parent
             z:                pigletIdleImage.z - 1
-            width:            parent.width
-            height:           parent.height
+            width:            pigletIdleImage.width
+            height:           pigletIdleImage.height
             source:           "qrc:/resources/images/piglet/piglet_listens.jpg"
-            fillMode:         Image.PreserveAspectCrop
-
-            property bool geometrySettled: false
-
-            onPaintedWidthChanged: {
-                if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                    geometrySettled = true;
-
-                    width    = paintedWidth;
-                    height   = paintedHeight;
-                    fillMode = Image.Stretch;
-                }
-            }
-
-            onPaintedHeightChanged: {
-                if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                    geometrySettled = true;
-
-                    width    = paintedWidth;
-                    height   = paintedHeight;
-                    fillMode = Image.Stretch;
-                }
-            }
+            fillMode:         Image.Stretch
         }
 
         AnimatedSprite {
             id:               pigletVoiceFoundAnimatedSprite
             anchors.centerIn: parent
             z:                running ? pigletIdleImage.z + 1 : pigletIdleImage.z - 1
-            width:            pigletListensImage.width
-            height:           pigletListensImage.height
+            width:            pigletIdleImage.width
+            height:           pigletIdleImage.height
             running:          false
             source:           "qrc:/resources/animations/piglet/piglet_voice_found.jpg"
             frameCount:       5
@@ -535,8 +515,8 @@ Item {
             id:               pigletVoiceEndedAnimatedSprite
             anchors.centerIn: parent
             z:                running ? pigletIdleImage.z + 1 : pigletIdleImage.z - 1
-            width:            pigletListensImage.width
-            height:           pigletListensImage.height
+            width:            pigletIdleImage.width
+            height:           pigletIdleImage.height
             running:          false
             source:           "qrc:/resources/animations/piglet/piglet_voice_ended.jpg"
             frameCount:       5
