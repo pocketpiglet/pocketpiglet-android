@@ -30,7 +30,7 @@ Item {
 
     onAppInForegroundChanged: {
         if (appInForeground && pageActive) {
-            if (!pigletSaysAnimatedSprite.running) {
+            if (!pigletSaysSpriteSequence.running) {
                 animationEnabled = true;
 
                 performAnimation();
@@ -42,7 +42,7 @@ Item {
 
     onPageActiveChanged: {
         if (appInForeground && pageActive) {
-            if (!pigletSaysAnimatedSprite.running) {
+            if (!pigletSaysSpriteSequence.running) {
                 animationEnabled = true;
 
                 performAnimation();
@@ -165,7 +165,7 @@ Item {
             if (playbackWasStarted && playbackState !== Audio.PlayingState) {
                 playbackWasStarted = false;
 
-                pigletSaysAnimatedSprite.running = false;
+                pigletSaysSpriteSequence.running = false;
             }
         }
 
@@ -200,19 +200,19 @@ Item {
 
             pigletPage.stopAnimation();
 
-            pigletVoiceFoundAnimatedSprite.playAnimation();
+            pigletVoiceFoundSpriteSequence.playAnimation();
         }
 
         onVoiceRecorded: {
-            pigletVoiceFoundAnimatedSprite.running = false;
+            pigletVoiceFoundSpriteSequence.running = false;
 
-            pigletVoiceEndedAnimatedSprite.playAnimation(true);
+            pigletVoiceEndedSpriteSequence.playAnimation(true);
         }
 
         onVoiceReset: {
-            pigletVoiceFoundAnimatedSprite.running = false;
+            pigletVoiceFoundSpriteSequence.running = false;
 
-            pigletVoiceEndedAnimatedSprite.playAnimation(false);
+            pigletVoiceEndedSpriteSequence.playAnimation(false);
         }
     }
 
@@ -385,7 +385,6 @@ Item {
                     sprite.frameHeight = animationFrameHeight;
                     sprite.frameX      = 0;
                     sprite.frameRate   = 1;
-                    sprite.to          = {"animation0Sprite": 1};
 
                     sprites_list.push(sprite);
                 }
@@ -456,7 +455,6 @@ Item {
                 sprite.frameHeight = animationFrameHeight;
                 sprite.frameX      = 0;
                 sprite.frameRate   = 1;
-                sprite.to          = {"animation0Sprite": 1};
 
                 sprites_list.push(sprite);
 
@@ -468,72 +466,67 @@ Item {
             }
         }
 
-        Image {
-            id:               pigletListensImage
-            anchors.centerIn: parent
-            z:                pigletIdleImage.z - 1
-            width:            pigletIdleImage.width
-            height:           pigletIdleImage.height
-            source:           "qrc:/resources/images/piglet/piglet_listens.jpg"
-            fillMode:         Image.Stretch
-        }
-
-        AnimatedSprite {
-            id:               pigletVoiceFoundAnimatedSprite
+        SpriteSequence {
+            id:               pigletVoiceFoundSpriteSequence
             anchors.centerIn: parent
             z:                running ? pigletIdleImage.z + 1 : pigletIdleImage.z - 1
             width:            pigletIdleImage.width
             height:           pigletIdleImage.height
             running:          false
-            source:           "qrc:/resources/animations/piglet/piglet_voice_found.jpg"
-            frameCount:       5
-            frameWidth:       360
-            frameHeight:      640
-            frameX:           0
-            frameRate:        15
-            loops:            1
-
-            onRunningChanged: {
-                if (!running) {
-                    pigletListensImage.z = pigletIdleImage.z + 1;
-                }
-            }
-
-            onCurrentFrameChanged: {
-                if (running && currentFrame === frameCount - 1) {
-                    running = false;
-                }
-            }
 
             function playAnimation() {
-                currentFrame = 0;
-                running      = true;
+                jumpTo("animationStartSprite");
+
+                running = true;
+            }
+
+            Sprite {
+                name:        "animationStartSprite"
+                source:      "qrc:/resources/animations/piglet/piglet_voice_found.jpg"
+                frameCount:  1
+                frameWidth:  360
+                frameHeight: 640
+                frameX:      0
+                frameRate:   15
+                to:          {"animationSprite": 1}
+            }
+
+            Sprite {
+                name:        "animationSprite"
+                source:      "qrc:/resources/animations/piglet/piglet_voice_found.jpg"
+                frameCount:  3
+                frameWidth:  360
+                frameHeight: 640
+                frameX:      frameWidth
+                frameRate:   15
+                to:          {"animationFinishSprite": 1}
+            }
+
+            Sprite {
+                name:        "animationFinishSprite"
+                source:      "qrc:/resources/animations/piglet/piglet_voice_found.jpg"
+                frameCount:  1
+                frameWidth:  360
+                frameHeight: 640
+                frameX:      frameWidth * 4
+                frameRate:   1
             }
         }
 
-        AnimatedSprite {
-            id:               pigletVoiceEndedAnimatedSprite
+        SpriteSequence {
+            id:               pigletVoiceEndedSpriteSequence
             anchors.centerIn: parent
             z:                running ? pigletIdleImage.z + 1 : pigletIdleImage.z - 1
             width:            pigletIdleImage.width
             height:           pigletIdleImage.height
             running:          false
-            source:           "qrc:/resources/animations/piglet/piglet_voice_ended.jpg"
-            frameCount:       5
-            frameWidth:       360
-            frameHeight:      640
-            frameX:           0
-            frameRate:        15
-            loops:            1
 
             property bool voiceRecorded: false
 
             onRunningChanged: {
-                if (running) {
-                    pigletListensImage.z = pigletIdleImage.z - 1;
-                } else {
+                if (!running) {
                     if (voiceRecorded) {
-                        pigletSaysAnimatedSprite.playAnimation();
+                        pigletSaysSpriteSequence.playAnimation();
                     } else {
                         pigletPage.animationEnabled = true;
 
@@ -542,33 +535,59 @@ Item {
                 }
             }
 
-            onCurrentFrameChanged: {
-                if (running && currentFrame === frameCount - 1) {
+            onCurrentSpriteChanged: {
+                if (running && currentSprite === "animationFinishSprite") {
                     running = false;
                 }
             }
 
             function playAnimation(voice_recorded) {
-                currentFrame  = 0;
+                jumpTo("animationStartSprite");
+
                 voiceRecorded = voice_recorded;
                 running       = true;
             }
+
+            Sprite {
+                name:        "animationStartSprite"
+                source:      "qrc:/resources/animations/piglet/piglet_voice_ended.jpg"
+                frameCount:  1
+                frameWidth:  360
+                frameHeight: 640
+                frameX:      0
+                frameRate:   15
+                to:          {"animationSprite": 1}
+            }
+
+            Sprite {
+                name:        "animationSprite"
+                source:      "qrc:/resources/animations/piglet/piglet_voice_ended.jpg"
+                frameCount:  3
+                frameWidth:  360
+                frameHeight: 640
+                frameX:      frameWidth
+                frameRate:   15
+                to:          {"animationFinishSprite": 1}
+            }
+
+            Sprite {
+                name:        "animationFinishSprite"
+                source:      "qrc:/resources/animations/piglet/piglet_voice_ended.jpg"
+                frameCount:  1
+                frameWidth:  360
+                frameHeight: 640
+                frameX:      frameWidth * 4
+                frameRate:   1
+            }
         }
 
-        AnimatedSprite {
-            id:               pigletSaysAnimatedSprite
+        SpriteSequence {
+            id:               pigletSaysSpriteSequence
             anchors.centerIn: parent
             z:                running ? pigletIdleImage.z + 1 : pigletIdleImage.z - 1
             width:            pigletIdleImage.width
             height:           pigletIdleImage.height
             running:          false
-            source:           "qrc:/resources/animations/piglet/piglet_says.jpg"
-            frameCount:       4
-            frameWidth:       360
-            frameHeight:      640
-            frameX:           0
-            frameRate:        10
-            loops:            AnimatedSprite.Infinite
 
             onRunningChanged: {
                 if (running) {
@@ -581,8 +600,18 @@ Item {
             }
 
             function playAnimation() {
-                currentFrame = 0;
-                running      = true;
+                running = true;
+            }
+
+            Sprite {
+                name:        "animationSprite"
+                source:      "qrc:/resources/animations/piglet/piglet_says.jpg"
+                frameCount:  4
+                frameWidth:  360
+                frameHeight: 640
+                frameX:      0
+                frameRate:   10
+                to:          {"animationSprite": 1}
             }
         }
 
