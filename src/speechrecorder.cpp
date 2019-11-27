@@ -223,6 +223,18 @@ void SpeechRecorder::Cleanup()
 
 void SpeechRecorder::CreateAudioInput()
 {
+    //
+    // Workaround for Qt for Android - app should have permission
+    // to access microphone to get valid info about audio formats,
+    // so let's request required permission first.
+    //
+    {
+        QAudioInput input(QAudioDeviceInfo::defaultInputDevice().preferredFormat());
+
+        input.start();
+    }
+    // -------------------------------------------------------------
+
     QAudioFormat format, supported_format;
 
     format.setSampleRate(16000);
