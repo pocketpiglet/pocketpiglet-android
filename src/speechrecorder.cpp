@@ -74,6 +74,8 @@ void SpeechRecorder::setMinVoiceDuration(int duration)
         MinVoiceDuration = duration;
 
         emit minVoiceDurationChanged(MinVoiceDuration);
+
+        Cleanup();
     }
 }
 
@@ -88,6 +90,8 @@ void SpeechRecorder::setMinSilenceDuration(int duration)
         MinSilenceDuration = duration;
 
         emit minSilenceDurationChanged(MinSilenceDuration);
+
+        Cleanup();
     }
 }
 
@@ -132,73 +136,77 @@ void SpeechRecorder::handleAudioInputDeviceReadyRead()
 {
     auto audio_input_device = qobject_cast<QIODevice *>(QObject::sender());
 
-    if (audio_input_device != nullptr && VadInstance != nullptr && AudioInput) {
-        QAudioFormat::SampleType sample_type  = AudioInput->format().sampleType();
-        int                      sample_rate  = AudioInput->format().sampleRate();
-        int                      sample_size  = AudioInput->format().sampleSize();
-        int                      frame_length = (sample_rate / 1000) * 30;
-        int                      frame_bytes  = frame_length * (sample_size / 8);
-
+    if (audio_input_device != nullptr) {
         AudioBuffer.append(audio_input_device->readAll());
 
-        if (AudioBuffer.size() >= frame_bytes) {
-            int p = 0;
+        if (VadInstance != nullptr && AudioInput) {
+            int                      sample_rate  = AudioInput->format().sampleRate();
+            int                      sample_size  = AudioInput->format().sampleSize();
+            QAudioFormat::SampleType sample_type  = AudioInput->format().sampleType();
+            int                      frame_length = (sample_rate / 1000) * 30;
+            int                      frame_bytes  = frame_length * (sample_size / 8);
 
-            while (p < AudioBuffer.size()) {
-                if (p + frame_bytes <= AudioBuffer.size()) {
-                    QVarLengthArray<int16_t, 1024>audio_data_16bit(frame_length);
+            if (AudioBuffer.size() >= frame_bytes) {
+                int p = 0;
 
-                    for (int i = 0; i < frame_length; i++) {
-                        if (sample_type == QAudioFormat::UnSignedInt && sample_size == 8) {
-                            audio_data_16bit[i] = (static_cast<quint8>(AudioBuffer[p + i]) - 128) * 256;
-                        } else if (sample_type == QAudioFormat::SignedInt && sample_size == 16) {
-                            audio_data_16bit[i] = static_cast<int16_t>((static_cast<quint16>(AudioBuffer[p + i * 2 + 1]) * 256) + static_cast<quint8>(AudioBuffer[p + i * 2]));
-                        } else {
-                            audio_data_16bit[i] = 0;
-                        }
-                    }
+                while (p < AudioBuffer.size()) {
+                    if (p + frame_bytes <= AudioBuffer.size()) {
+                        QVarLengthArray<int16_t, 1024>audio_data_16bit(frame_length);
 
-                    if (WebRtcVad_Process(VadInstance, sample_rate, audio_data_16bit.data(), frame_length) > 0) {
-                        VoiceBuffer.append(AudioBuffer.mid(p, frame_bytes));
-
-                        SilenceSize = 0;
-
-                        if (VoiceBuffer.size() > (sample_rate / 1000) * MinVoiceDuration && !VoiceDetected) {
-                            VoiceDetected = true;
-
-                            emit voiceFound();
-                        }
-                    } else {
-                        SilenceSize = SilenceSize + frame_length;
-
-                        if (VoiceDetected) {
-                            VoiceBuffer.append(AudioBuffer.mid(p, frame_bytes));
-                        } else {
-                            VoiceBuffer.clear();
-                        }
-
-                        if (SilenceSize > (sample_rate / 1000) * MinSilenceDuration) {
-                            if (VoiceDetected) {
-                                VoiceDetected = false;
-
-                                SaveVoice();
-
-                                emit voiceRecorded();
+                        for (int i = 0; i < frame_length; i++) {
+                            if (sample_type == QAudioFormat::UnSignedInt && sample_size == 8) {
+                                audio_data_16bit[i] = (static_cast<quint8>(AudioBuffer[p + i]) - 128) * 256;
+                            } else if (sample_type == QAudioFormat::SignedInt && sample_size == 16) {
+                                audio_data_16bit[i] = static_cast<int16_t>((static_cast<quint16>(AudioBuffer[p + i * 2 + 1]) * 256) + static_cast<quint8>(AudioBuffer[p + i * 2]));
+                            } else {
+                                audio_data_16bit[i] = 0;
                             }
+                        }
+
+                        if (WebRtcVad_Process(VadInstance, sample_rate, audio_data_16bit.data(), frame_length) > 0) {
+                            VoiceBuffer.append(AudioBuffer.mid(p, frame_bytes));
 
                             SilenceSize = 0;
 
-                            VoiceBuffer.clear();
+                            if (VoiceBuffer.size() > (sample_rate / 1000) * MinVoiceDuration && !VoiceDetected) {
+                                VoiceDetected = true;
+
+                                emit voiceFound();
+                            }
+                        } else {
+                            SilenceSize = SilenceSize + frame_length;
+
+                            if (VoiceDetected) {
+                                VoiceBuffer.append(AudioBuffer.mid(p, frame_bytes));
+                            } else {
+                                VoiceBuffer.clear();
+                            }
+
+                            if (SilenceSize > (sample_rate / 1000) * MinSilenceDuration) {
+                                if (VoiceDetected) {
+                                    VoiceDetected = false;
+
+                                    SaveVoice();
+
+                                    emit voiceRecorded();
+                                }
+
+                                SilenceSize = 0;
+
+                                VoiceBuffer.clear();
+                            }
                         }
+
+                        p = p + frame_bytes;
+                    } else {
+                        break;
                     }
-
-                    p = p + frame_bytes;
-                } else {
-                    break;
                 }
-            }
 
-            AudioBuffer = AudioBuffer.mid(p);
+                AudioBuffer = AudioBuffer.mid(p);
+            }
+        } else {
+            Cleanup();
         }
     }
 }
