@@ -7,8 +7,8 @@
 #include <QtQuickControls2/QQuickStyle>
 #include <QtAndroidExtras/QtAndroid>
 
-#include "speechrecorder.h"
 #include "uihelper.h"
+#include "voicerecorder.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
         QGuiApplication::installTranslator(&translator);
     }
 
-    qmlRegisterType<SpeechRecorder>("SpeechRecorder", 1, 0, "SpeechRecorder");
+    qmlRegisterType<VoiceRecorder>("VoiceRecorder", 1, 0, "VoiceRecorder");
 
     QQmlApplicationEngine engine;
 

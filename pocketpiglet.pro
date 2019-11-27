@@ -8,8 +8,8 @@ DEFINES += QT_DEPRECATED_WARNINGS QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII WEBR
 
 SOURCES += \
     src/main.cpp \
-    src/speechrecorder.cpp \
     src/uihelper.cpp \
+    src/voicerecorder.cpp \
     webrtc/common_audio/signal_processing/complex_bit_reverse.c \
     webrtc/common_audio/signal_processing/complex_fft.c \
     webrtc/common_audio/signal_processing/cross_correlation.c \
@@ -31,8 +31,8 @@ SOURCES += \
     webrtc/common_audio/vad/webrtc_vad.c
 
 HEADERS += \
-    src/speechrecorder.h \
     src/uihelper.h \
+    src/voicerecorder.h \
     webrtc/typedefs.h \
     webrtc/common_audio/signal_processing/complex_fft_tables.h \
     webrtc/common_audio/signal_processing/resample_by_2_internal.h \

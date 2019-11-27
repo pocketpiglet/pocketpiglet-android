@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtMultimedia 5.12
 import QtSensors 5.12
-import SpeechRecorder 1.0
+import VoiceRecorder 1.0
 
 import "Dialog"
 import "Piglet"
@@ -131,7 +131,7 @@ Item {
         id:     audio
         volume: 1.0
         muted:  !pigletPage.appInForeground || !pigletPage.pageActive ||
-                speechAudio.playbackState === Audio.PlayingState
+                voiceAudio.playbackState === Audio.PlayingState
 
         property string audioSource: ""
 
@@ -150,7 +150,7 @@ Item {
     }
 
     Audio {
-        id:     speechAudio
+        id:     voiceAudio
         volume: 1.0
         muted:  !pigletPage.appInForeground || !pigletPage.pageActive ||
                 audio.playbackState === Audio.PlayingState
@@ -180,15 +180,15 @@ Item {
         }
     }
 
-    SpeechRecorder {
-        id:                   speechRecorder
+    VoiceRecorder {
+        id:                   voiceRecorder
         volume:               1.0
         sampleRateMultiplier: 1.5
         minVoiceDuration:     500
         minSilenceDuration:   200
         active:               pigletPage.appInForeground && pigletPage.pageActive &&
-                              audio.playbackState       !== Audio.PlayingState &&
-                              speechAudio.playbackState !== Audio.PlayingState
+                              audio.playbackState      !== Audio.PlayingState &&
+                              voiceAudio.playbackState !== Audio.PlayingState
 
         onError: {
             console.error(errorString);
@@ -590,7 +590,7 @@ Item {
 
             onRunningChanged: {
                 if (running) {
-                    speechAudio.playAudio(speechRecorder.voiceFileURL);
+                    voiceAudio.playAudio(voiceRecorder.voiceFileURL);
                 } else {
                     pigletPage.animationEnabled = true;
 

@@ -1,5 +1,5 @@
-#ifndef SPEECHRECORDER_H
-#define SPEECHRECORDER_H
+#ifndef VOICERECORDER_H
+#define VOICERECORDER_H
 
 #include <memory>
 
@@ -11,7 +11,7 @@
 
 #include "webrtc/common_audio/vad/include/webrtc_vad.h"
 
-class SpeechRecorder : public QObject
+class VoiceRecorder : public QObject
 {
     Q_OBJECT
 
@@ -24,15 +24,15 @@ class SpeechRecorder : public QObject
     Q_PROPERTY(QString voiceFileURL         READ voiceFileURL)
 
 public:
-    explicit SpeechRecorder(QObject *parent = nullptr);
+    explicit VoiceRecorder(QObject *parent = nullptr);
 
-    SpeechRecorder(const SpeechRecorder &) = delete;
-    SpeechRecorder(SpeechRecorder &&) noexcept = delete;
+    VoiceRecorder(const VoiceRecorder &) = delete;
+    VoiceRecorder(VoiceRecorder &&) noexcept = delete;
 
-    SpeechRecorder &operator=(const SpeechRecorder &) = delete;
-    SpeechRecorder &operator=(SpeechRecorder &&) noexcept = delete;
+    VoiceRecorder &operator=(const VoiceRecorder &) = delete;
+    VoiceRecorder &operator=(VoiceRecorder &&) noexcept = delete;
 
-    ~SpeechRecorder() noexcept override;
+    ~VoiceRecorder() noexcept override;
 
     bool active() const;
     void setActive(bool active);
@@ -86,4 +86,4 @@ private:
     std::unique_ptr<QAudioInput> AudioInput;
 };
 
-#endif // SPEECHRECORDER_H
+#endif // VOICERECORDER_H
