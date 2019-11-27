@@ -18,7 +18,7 @@ SpeechRecorder::SpeechRecorder(QObject *parent) : QObject(parent)
     VoiceDetected        = false;
     MinVoiceDuration     = 1000;
     MinSilenceDuration   = 1000;
-    SilenceSize          = 0;
+    SilenceLength        = 0;
     Volume               = 1.0;
     SampleRateMultiplier = 1.0;
     VadInstance          = nullptr;
@@ -166,7 +166,7 @@ void SpeechRecorder::handleAudioInputDeviceReadyRead()
                         if (WebRtcVad_Process(VadInstance, sample_rate, audio_data_16bit.data(), frame_length) > 0) {
                             VoiceBuffer.append(AudioBuffer.mid(p, frame_bytes));
 
-                            SilenceSize = 0;
+                            SilenceLength = 0;
 
                             if (VoiceBuffer.size() > (sample_rate / 1000) * MinVoiceDuration && !VoiceDetected) {
                                 VoiceDetected = true;
@@ -174,25 +174,22 @@ void SpeechRecorder::handleAudioInputDeviceReadyRead()
                                 emit voiceFound();
                             }
                         } else {
-                            SilenceSize = SilenceSize + frame_length;
-
                             if (VoiceDetected) {
                                 VoiceBuffer.append(AudioBuffer.mid(p, frame_bytes));
-                            } else {
-                                VoiceBuffer.clear();
-                            }
 
-                            if (SilenceSize > (sample_rate / 1000) * MinSilenceDuration) {
-                                if (VoiceDetected) {
+                                SilenceLength = SilenceLength + frame_length;
+
+                                if (SilenceLength > (sample_rate / 1000) * MinSilenceDuration) {
                                     VoiceDetected = false;
+                                    SilenceLength = 0;
 
                                     SaveVoice();
 
                                     emit voiceRecorded();
+
+                                    VoiceBuffer.clear();
                                 }
-
-                                SilenceSize = 0;
-
+                            } else {
                                 VoiceBuffer.clear();
                             }
                         }
@@ -218,7 +215,7 @@ void SpeechRecorder::Cleanup()
     }
 
     VoiceDetected = false;
-    SilenceSize   = 0;
+    SilenceLength = 0;
 
     AudioBuffer.clear();
     VoiceBuffer.clear();

@@ -78,7 +78,7 @@ private:
 
     bool                         Active, VoiceDetected;
     int                          MinVoiceDuration, MinSilenceDuration,
-                                 SilenceSize;
+                                 SilenceLength;
     qreal                        Volume, SampleRateMultiplier;
     QString                      VoiceFilePath;
     QByteArray                   AudioBuffer, VoiceBuffer;
