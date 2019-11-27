@@ -185,7 +185,7 @@ Item {
         volume:               1.0
         sampleRateMultiplier: 1.5
         minVoiceDuration:     500
-        minSilenceDuration:   100
+        minSilenceDuration:   200
         active:               pigletPage.appInForeground && pigletPage.pageActive &&
                               audio.playbackState       !== Audio.PlayingState &&
                               speechAudio.playbackState !== Audio.PlayingState
