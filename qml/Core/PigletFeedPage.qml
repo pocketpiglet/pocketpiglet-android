@@ -35,6 +35,10 @@ Item {
         }
     }
 
+    StackView.onRemoved: {
+        destroy();
+    }
+
     onAppInForegroundChanged: {
         if (appInForeground && pageActive) {
             if (allowLevelRestart) {
@@ -53,10 +57,6 @@ Item {
         } else {
             refrigerator.cancelOrder();
         }
-    }
-
-    StackView.onRemoved: {
-        destroy();
     }
 
     function handleScreenOrientationUpdate(screen_orientation) {

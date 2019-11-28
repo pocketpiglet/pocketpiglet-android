@@ -35,6 +35,10 @@ Item {
         }
     }
 
+    StackView.onRemoved: {
+        destroy();
+    }
+
     onAppInForegroundChanged: {
         if (appInForeground && pageActive) {
             if (!pageInitialized) {
@@ -101,10 +105,6 @@ Item {
         } else if (missedPigletsCount > 0) {
             createPiglet();
         }
-    }
-
-    StackView.onRemoved: {
-        destroy();
     }
 
     function createPiglet() {

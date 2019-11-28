@@ -37,6 +37,10 @@ Item {
         }
     }
 
+    StackView.onRemoved: {
+        destroy();
+    }
+
     onAppInForegroundChanged: {
         if (appInForeground && pageActive) {
             if (!pageInitialized) {
@@ -95,10 +99,6 @@ Item {
                 gameOverQueryDialog.open();
             }
         }
-    }
-
-    StackView.onRemoved: {
-        destroy();
     }
 
     Audio {
