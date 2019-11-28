@@ -17,7 +17,7 @@ Item {
 
     readonly property int diamondsMaxAmount:    10
 
-    readonly property real accelShakeThreshold: 50.0
+    readonly property real accelShakeThreshold: 20.0
 
     property bool animationEnabled:             false
 
@@ -841,9 +841,9 @@ Item {
         active:   pigletPage.appInForeground && pigletPage.pageActive
 
         onReadingChanged: {
-            if (Math.abs(reading.x) > pigletPage.accelShakeThreshold ||
-                Math.abs(reading.y) > pigletPage.accelShakeThreshold ||
-                Math.abs(reading.z) > pigletPage.accelShakeThreshold) {
+            if (Math.sqrt(Math.pow(reading.x, 2) +
+                          Math.pow(reading.y, 2) +
+                          Math.pow(reading.z, 2)) > pigletPage.accelShakeThreshold) {
                 if (!pigletPage.isAnimationActive("piglet_falls") && pigletPage.nextAnimation !== "piglet_falls") {
                     pigletPage.nextAnimation = "piglet_falls";
 
