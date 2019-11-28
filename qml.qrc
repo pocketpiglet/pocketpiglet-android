@@ -6,7 +6,6 @@
         <file>qml/Core/PigletPage.qml</file>
         <file>qml/Core/PigletPuzzlePage.js</file>
         <file>qml/Core/PigletPuzzlePage.qml</file>
-        <file>qml/Core/PigletSearchPage.qml</file>
         <file>qml/Core/PigletWashPage.js</file>
         <file>qml/Core/PigletWashPage.qml</file>
         <file>qml/Core/Dialog/NewDiamondsDialog.qml</file>
@@ -22,7 +21,6 @@
         <file>qml/Core/PigletFeed/Refrigerator.qml</file>
         <file>qml/Core/PigletFeed/Sandwich.qml</file>
         <file>qml/Core/PigletFeed/SandwichItem.qml</file>
-        <file>qml/Core/PigletSearch/Piglet.qml</file>
         <file>qml/Core/PigletWash/Bubble.qml</file>
     </qresource>
 </RCC>

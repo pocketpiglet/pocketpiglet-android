@@ -38,8 +38,6 @@
         <file>resources/images/piglet/game_piglet_feed_highlighted.png</file>
         <file>resources/images/piglet/game_piglet_puzzle.png</file>
         <file>resources/images/piglet/game_piglet_puzzle_highlighted.png</file>
-        <file>resources/images/piglet/game_piglet_search.png</file>
-        <file>resources/images/piglet/game_piglet_search_highlighted.png</file>
         <file>resources/images/piglet/game_piglet_wash.png</file>
         <file>resources/images/piglet/game_piglet_wash_highlighted.png</file>
         <file>resources/images/piglet_feed/background.gif</file>
@@ -160,17 +158,6 @@
         <file>resources/images/piglet_puzzle/watering_flowers/medium/9.png</file>
         <file>resources/images/piglet_puzzle/watering_flowers/original.png</file>
         <file>resources/images/piglet_puzzle/watering_flowers/original_thumbnail.png</file>
-        <file>resources/images/piglet_search/piglet_1.png</file>
-        <file>resources/images/piglet_search/piglet_2.png</file>
-        <file>resources/images/piglet_search/piglet_3.png</file>
-        <file>resources/images/piglet_search/piglet_found.png</file>
-        <file>resources/images/piglet_search/missed_piglet.png</file>
-        <file>resources/images/piglet_search/missed_piglet_grayed.png</file>
-        <file>resources/images/piglet_search/missed_piglets_background.png</file>
-        <file>resources/images/piglet_search/turn_down.png</file>
-        <file>resources/images/piglet_search/turn_left.png</file>
-        <file>resources/images/piglet_search/turn_right.png</file>
-        <file>resources/images/piglet_search/turn_up.png</file>
         <file>resources/images/piglet_wash/background_0_missed.gif</file>
         <file>resources/images/piglet_wash/background_1_missed.gif</file>
         <file>resources/images/piglet_wash/background_2_missed.gif</file>
@@ -194,11 +181,6 @@
         <file>resources/sound/piglet_feed/sandwich_eating.wav</file>
         <file>resources/sound/piglet_puzzle/game_completed.wav</file>
         <file>resources/sound/piglet_puzzle/game_started.wav</file>
-        <file>resources/sound/piglet_search/game_over.wav</file>
-        <file>resources/sound/piglet_search/game_started.wav</file>
-        <file>resources/sound/piglet_search/high_score.wav</file>
-        <file>resources/sound/piglet_search/piglet_found.wav</file>
-        <file>resources/sound/piglet_search/piglet_missed.wav</file>
         <file>resources/sound/piglet_wash/bubble_bursted.wav</file>
         <file>resources/sound/piglet_wash/game_over.wav</file>
         <file>resources/sound/piglet_wash/game_started.wav</file>

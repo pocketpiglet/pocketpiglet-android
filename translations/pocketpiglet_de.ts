@@ -12,35 +12,17 @@
 <context>
     <name>PigletFeedPage</name>
     <message>
-        <location filename="../qml/Core/PigletFeedPage.qml" line="319"/>
+        <location filename="../qml/Core/PigletFeedPage.qml" line="329"/>
         <source>Level %1 of %2. Get ready to remember a sandwich recipe...</source>
         <translation>Niveau %1 von %2. Merken Sie sich ein Rezept...</translation>
     </message>
     <message>
-        <location filename="../qml/Core/PigletFeedPage.qml" line="341"/>
+        <location filename="../qml/Core/PigletFeedPage.qml" line="351"/>
         <source>Congratulations, you have just won the game! Do you want to play again?</source>
         <translation>Ich gratuliere, Sie haben eben gewonnen! Möchten Sie nochmals probieren?</translation>
     </message>
     <message>
-        <location filename="../qml/Core/PigletFeedPage.qml" line="362"/>
-        <source>Game over. Do you want to play again?</source>
-        <translation>Das Spiel ist aus. Möchten Sie nochmals probieren?</translation>
-    </message>
-</context>
-<context>
-    <name>PigletSearchPage</name>
-    <message>
-        <location filename="../qml/Core/PigletSearchPage.qml" line="525"/>
-        <source>Your piglet wants to play hide-and-seek! Try to find him in your room using your phone&apos;s camera as fast as you can.</source>
-        <translation>Dein Ferkel will Verstecken spielen! Versuchen Sie ihn so schnell wie möglich mit der Kamera Ihres Telefons in Ihrem Zimmer zu finden.</translation>
-    </message>
-    <message>
-        <location filename="../qml/Core/PigletSearchPage.qml" line="547"/>
-        <source>Congratulations, you have a new highscore! Do you want to play again?</source>
-        <translation>Ich gratuliere, du hast einen neuen Highscore! Möchten Sie nochmals probieren?</translation>
-    </message>
-    <message>
-        <location filename="../qml/Core/PigletSearchPage.qml" line="567"/>
+        <location filename="../qml/Core/PigletFeedPage.qml" line="372"/>
         <source>Game over. Do you want to play again?</source>
         <translation>Das Spiel ist aus. Möchten Sie nochmals probieren?</translation>
     </message>
@@ -48,17 +30,17 @@
 <context>
     <name>PigletWashPage</name>
     <message>
-        <location filename="../qml/Core/PigletWashPage.qml" line="287"/>
+        <location filename="../qml/Core/PigletWashPage.qml" line="297"/>
         <source>Your piglet wants to take a bath and play with soap bubbles! Help him to catch and pop as many bubbles as you can.</source>
         <translation>Dein Ferkel will ein Bad nehmen und mit Seifenblasen spielen! Hilf ihm, so viele Blasen wie möglich zu fangen und zu knallen.</translation>
     </message>
     <message>
-        <location filename="../qml/Core/PigletWashPage.qml" line="310"/>
+        <location filename="../qml/Core/PigletWashPage.qml" line="320"/>
         <source>Congratulations, you have a new highscore! Do you want to play again?</source>
         <translation>Ich gratuliere, du hast einen neuen Highscore! Möchten Sie nochmals probieren?</translation>
     </message>
     <message>
-        <location filename="../qml/Core/PigletWashPage.qml" line="330"/>
+        <location filename="../qml/Core/PigletWashPage.qml" line="340"/>
         <source>Game over. Do you want to play again?</source>
         <translation>Das Spiel ist aus. Möchten Sie nochmals probieren?</translation>
     </message>

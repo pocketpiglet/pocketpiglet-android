@@ -746,34 +746,6 @@ Item {
                     }
                 }
             }
-
-            GameButton {
-                id:                pigletSearchGameButton
-                width:             UtilScript.dp(64)
-                height:            UtilScript.dp(64)
-                sourceNormal:      "qrc:/resources/images/piglet/game_piglet_search.png"
-                sourceHighlighted: "qrc:/resources/images/piglet/game_piglet_search_highlighted.png"
-
-                onClicked: {
-                    if (mainWindow.fullVersion || pigletPage.diamondsAmount > 0) {
-                        var component = Qt.createComponent("PigletSearchPage.qml");
-
-                        if (component.status === Component.Ready) {
-                            var object = component.createObject(null);
-
-                            object.gameFinished.connect(pigletPage.handleGameFinish);
-
-                            mainStackView.push(object);
-                        } else {
-                            console.error(component.errorString());
-                        }
-
-                        pigletPage.diamondsAmount = Math.max(pigletPage.diamondsAmount - 1, 0);
-                    } else {
-                        parentalGateDialog.open();
-                    }
-                }
-            }
         }
 
         Column {
@@ -894,22 +866,18 @@ Item {
                 if ((elapsed < 0 || elapsed > 60000) && pigletPage.wantedGame === "") {
                     var rand = Math.random();
 
-                    if (rand < 0.25) {
+                    if (rand < 0.33) {
                         pigletPage.wantedGame = "piglet_feed";
 
                         pigletFeedGameButton.highlighted = true;
-                    } else if (rand < 0.50) {
+                    } else if (rand < 0.66) {
                         pigletPage.wantedGame = "piglet_wash";
 
                         pigletWashGameButton.highlighted = true;
-                    } else if (rand < 0.75) {
+                    } else {
                         pigletPage.wantedGame = "piglet_puzzle";
 
                         pigletPuzzleGameButton.highlighted = true;
-                    } else {
-                        pigletPage.wantedGame = "piglet_search";
-
-                        pigletSearchGameButton.highlighted = true;
                     }
                 }
 
