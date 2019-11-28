@@ -24,6 +24,16 @@ Item {
 
     signal gameFinished(string game)
 
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back) {
+            gameFinished("piglet_puzzle");
+
+            mainStackView.pop();
+
+            event.accepted = true;
+        }
+    }
+
     StackView.onRemoved: {
         destroy();
     }

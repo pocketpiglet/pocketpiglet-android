@@ -27,6 +27,16 @@ Item {
     signal gameFinished(string game)
     signal bubbleCleanupRequested()
 
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back) {
+            gameFinished("piglet_wash");
+
+            mainStackView.pop();
+
+            event.accepted = true;
+        }
+    }
+
     onAppInForegroundChanged: {
         if (appInForeground && pageActive) {
             if (!pageInitialized) {

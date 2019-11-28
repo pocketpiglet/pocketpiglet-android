@@ -28,6 +28,24 @@ Item {
     property string nextAnimation:              ""
     property string wantedGame:                 ""
 
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back) {
+            if (purchaseDialog.visible) {
+                purchaseDialog.close();
+
+                event.accepted = true;
+            } else if (newDiamondsDialog.visible) {
+                newDiamondsDialog.close();
+
+                event.accepted = true;
+            } else if (parentalGateDialog.visible) {
+                parentalGateDialog.close();
+
+                event.accepted = true;
+            }
+        }
+    }
+
     onAppInForegroundChanged: {
         if (appInForeground && pageActive) {
             if (!pigletSaysSpriteSequence.running) {

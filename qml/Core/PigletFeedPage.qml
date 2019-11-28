@@ -25,6 +25,16 @@ Item {
 
     signal gameFinished(string game)
 
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back) {
+            gameFinished("piglet_feed");
+
+            mainStackView.pop();
+
+            event.accepted = true;
+        }
+    }
+
     onAppInForegroundChanged: {
         if (appInForeground && pageActive) {
             if (allowLevelRestart) {
