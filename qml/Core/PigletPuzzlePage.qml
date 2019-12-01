@@ -24,6 +24,10 @@ Item {
 
     signal gameFinished(string game)
 
+    StackView.onRemoved: {
+        destroy();
+    }
+
     Keys.onReleased: {
         if (event.key === Qt.Key_Back) {
             gameFinished("piglet_puzzle");
@@ -32,10 +36,6 @@ Item {
 
             event.accepted = true;
         }
-    }
-
-    StackView.onRemoved: {
-        destroy();
     }
 
     function handleScreenOrientationUpdate(screen_orientation) {

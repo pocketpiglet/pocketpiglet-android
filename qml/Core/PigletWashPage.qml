@@ -27,20 +27,6 @@ Item {
     signal gameFinished(string game)
     signal bubbleCleanupRequested()
 
-    Keys.onReleased: {
-        if (event.key === Qt.Key_Back) {
-            gameFinished("piglet_wash");
-
-            mainStackView.pop();
-
-            event.accepted = true;
-        }
-    }
-
-    StackView.onRemoved: {
-        destroy();
-    }
-
     onAppInForegroundChanged: {
         if (appInForeground && pageActive) {
             if (!pageInitialized) {
@@ -98,6 +84,20 @@ Item {
             } else {
                 gameOverQueryDialog.open();
             }
+        }
+    }
+
+    StackView.onRemoved: {
+        destroy();
+    }
+
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back) {
+            gameFinished("piglet_wash");
+
+            mainStackView.pop();
+
+            event.accepted = true;
         }
     }
 

@@ -25,20 +25,6 @@ Item {
 
     signal gameFinished(string game)
 
-    Keys.onReleased: {
-        if (event.key === Qt.Key_Back) {
-            gameFinished("piglet_feed");
-
-            mainStackView.pop();
-
-            event.accepted = true;
-        }
-    }
-
-    StackView.onRemoved: {
-        destroy();
-    }
-
     onAppInForegroundChanged: {
         if (appInForeground && pageActive) {
             if (allowLevelRestart) {
@@ -56,6 +42,20 @@ Item {
             }
         } else {
             refrigerator.cancelOrder();
+        }
+    }
+
+    StackView.onRemoved: {
+        destroy();
+    }
+
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back) {
+            gameFinished("piglet_feed");
+
+            mainStackView.pop();
+
+            event.accepted = true;
         }
     }
 
