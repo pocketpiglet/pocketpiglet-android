@@ -354,7 +354,7 @@ Item {
                 if (animationCache[name]) {
                     sprites_list = animationCache[name];
                 } else {
-                    var sprite_code = "import QtQuick 2.9; Sprite {}";
+                    var sprite_code = "import QtQuick 2.12; Sprite {}";
                     var sprite      = null;
 
                     var sprites_count = frames_count / animationSpriteMaxFrameCount;
@@ -423,7 +423,7 @@ Item {
             }
 
             function cacheAnimation(src, name, frames_count, frame_rate) {
-                var sprite_code  = "import QtQuick 2.9; Sprite {}";
+                var sprite_code  = "import QtQuick 2.12; Sprite {}";
                 var sprites_list = [];
                 var sprite       = null;
 
