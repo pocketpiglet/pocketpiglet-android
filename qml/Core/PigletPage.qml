@@ -329,11 +329,7 @@ Item {
             property var animationCache:                        ({})
 
             onRunningChanged: {
-                if (running) {
-                    if (audioSource !== "") {
-                        audio.playAudio(audioSource);
-                    }
-                } else {
+                if (!running) {
                     if (audioSource === audio.audioSource) {
                         audio.stop();
                     }
@@ -341,10 +337,16 @@ Item {
             }
 
             onCurrentSpriteChanged: {
-                if (running && currentSprite === "animationFinishSprite") {
-                    running = false;
+                if (running) {
+                    if (currentSprite === "animation0Sprite") {
+                        if (audioSource !== "") {
+                            audio.playAudio(audioSource);
+                        }
+                    } else if (currentSprite === "animationFinishSprite") {
+                        running = false;
 
-                    pigletPage.performAnimation();
+                        pigletPage.performAnimation();
+                    }
                 }
             }
 
@@ -356,6 +358,19 @@ Item {
                 } else {
                     var sprite_code = "import QtQuick 2.12; Sprite {}";
                     var sprite      = null;
+
+                    sprite = Qt.createQmlObject(sprite_code, animationSpriteSequence, "animationStartSprite");
+
+                    sprite.name        = "animationStartSprite";
+                    sprite.source      = src;
+                    sprite.frameCount  = 1;
+                    sprite.frameWidth  = animationFrameWidth;
+                    sprite.frameHeight = animationFrameHeight;
+                    sprite.frameX      = 0;
+                    sprite.frameRate   = frame_rate;
+                    sprite.to          = {"animation0Sprite": 1};
+
+                    sprites_list.push(sprite);
 
                     var sprites_count = frames_count / animationSpriteMaxFrameCount;
 
@@ -426,6 +441,19 @@ Item {
                 var sprite_code  = "import QtQuick 2.12; Sprite {}";
                 var sprites_list = [];
                 var sprite       = null;
+
+                sprite = Qt.createQmlObject(sprite_code, animationSpriteSequence, "animationStartSprite");
+
+                sprite.name        = "animationStartSprite";
+                sprite.source      = src;
+                sprite.frameCount  = 1;
+                sprite.frameWidth  = animationFrameWidth;
+                sprite.frameHeight = animationFrameHeight;
+                sprite.frameX      = 0;
+                sprite.frameRate   = frame_rate;
+                sprite.to          = {"animation0Sprite": 1};
+
+                sprites_list.push(sprite);
 
                 var sprites_count = frames_count / animationSpriteMaxFrameCount;
 
