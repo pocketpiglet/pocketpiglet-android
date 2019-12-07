@@ -321,7 +321,7 @@ Item {
 
             readonly property int animationFrameWidth:          360
             readonly property int animationFrameHeight:         640
-            readonly property int animationSpriteMaxFrameCount: 5
+            readonly property int animationSpriteMaxFrameCount: 20
 
             property string animationName:                      ""
             property string audioSource:                        ""
