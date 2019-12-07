@@ -434,7 +434,10 @@ Item {
                 animationName = name;
                 audioSource   = audio_src;
                 sprites       = sprites_list;
-                running       = true;
+
+                jumpTo("animationStartSprite");
+
+                running = true;
             }
 
             function cacheAnimation(src, name, frames_count, frame_rate) {
@@ -587,10 +590,11 @@ Item {
             }
 
             function playAnimation(voice_recorded) {
+                voiceRecorded = voice_recorded;
+
                 jumpTo("animationStartSprite");
 
-                voiceRecorded = voice_recorded;
-                running       = true;
+                running = true;
             }
 
             Sprite {
