@@ -16,7 +16,7 @@ foreach name [lsort -dictionary [glob -types f "*.jpeg"]] {
             set number 0
         }
 
-        if {[expr $number % 2]==0} {
+        if {[expr $number % 4]==0} {
             lappend name_list $name
 
             incr files_count
