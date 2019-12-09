@@ -368,6 +368,19 @@ Item {
                     sprite.frameHeight = animationFrameHeight;
                     sprite.frameX      = 0;
                     sprite.frameRate   = frame_rate;
+                    sprite.to          = {"animationWaitSprite": 1};
+
+                    sprites_list.push(sprite);
+
+                    sprite = Qt.createQmlObject(sprite_code, animationSpriteSequence, "animationWaitSprite");
+
+                    sprite.name        = "animationWaitSprite";
+                    sprite.source      = src;
+                    sprite.frameCount  = 1;
+                    sprite.frameWidth  = animationFrameWidth;
+                    sprite.frameHeight = animationFrameHeight;
+                    sprite.frameX      = 0;
+                    sprite.frameRate   = frame_rate;
                     sprite.to          = {"animation0Sprite": 1};
 
                     sprites_list.push(sprite);
@@ -448,6 +461,19 @@ Item {
                 sprite = Qt.createQmlObject(sprite_code, animationSpriteSequence, "animationStartSprite");
 
                 sprite.name        = "animationStartSprite";
+                sprite.source      = src;
+                sprite.frameCount  = 1;
+                sprite.frameWidth  = animationFrameWidth;
+                sprite.frameHeight = animationFrameHeight;
+                sprite.frameX      = 0;
+                sprite.frameRate   = frame_rate;
+                sprite.to          = {"animationWaitSprite": 1};
+
+                sprites_list.push(sprite);
+
+                sprite = Qt.createQmlObject(sprite_code, animationSpriteSequence, "animationWaitSprite");
+
+                sprite.name        = "animationWaitSprite";
                 sprite.source      = src;
                 sprite.frameCount  = 1;
                 sprite.frameWidth  = animationFrameWidth;
