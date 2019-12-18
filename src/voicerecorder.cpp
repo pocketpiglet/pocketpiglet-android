@@ -172,7 +172,7 @@ void VoiceRecorder::handleAudioInputDeviceReadyRead()
 
                             SilenceLength = 0;
 
-                            if (!VoiceDetected && VoiceBuffer.size() > (sample_rate / 1000) * MinVoiceDuration) {
+                            if (!VoiceDetected && VoiceBuffer.size() > (sample_rate / 1000) * MinVoiceDuration * (sample_size / 8)) {
                                 VoiceDetected = true;
 
                                 emit voiceFound();
