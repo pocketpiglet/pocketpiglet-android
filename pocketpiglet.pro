@@ -113,6 +113,7 @@ android {
         android/source/res/values-fr/strings.xml \
         android/source/res/values-ru/strings.xml \
         android/source/res/values-zh/strings.xml \
+        android/source/res/xml/backup_content.xml \
         android/source/src/com/derevenetz/oleg/pocketpiglet/PigletActivity.java
 
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android/source
