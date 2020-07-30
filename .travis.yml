@@ -11,7 +11,7 @@ android:
 
 addons:
   sonarcloud:
-    organization: "pocketpiglet-github"
+    organization: "pocketpiglet-mobile-github"
     token:
       secure: "ac3oYx8whJj3yN1O5pFNK2Rem0NbQ8ZRwVsvmuFDJ/AreWzP9Gyk2g4U4AsowJbpwQA+ZWOlZv1QkZR2pXBjYz+6z2iJ+2fCNQM6iVUbMkHFIylizh0gMOPjXvZfZP7NumN0RREKff9yFKsrSKmYgKv3zWnVMf8Uas2eLHCmPowV9VOBCjLB4ovAjm2FK2R6dgAbN82uypSufGmx9ZREDOi51Rlv6LJRWEVDWWuD3Z38ry3lu8pdQwz3ohcPdm9IZ7jp5RUCJh0t0I4DMYu1LsBYHanpPIb5Sdksdd+BZ/VFHF/UX2+4kNAaqU80NVX1jOnOJuz3iVQ+mhsx0+E7N4+DrnBsjeBrLIXcstwp9S0c3fhjuy12g/gFPuNZCMjQMBs/z2qvrGS/3KYfp0sveZXCNK0ewIZ+PKpE1fsTpulI0zNY8O2OwTckjt3hHR53mmXDAxg7wwFT41dYIzmDpjlTrvDmYsUfCeDfLf62SOWuhKXJlaGSflOFha39WRt9bhG2+BNqhrkNy6Df3RCXckh4H1X7EXpjxuY68MGcYsM9MSpoqFtcZHza3vXlfhPK/uP1Z1LAlV2gBw4mYuAU9fosB/cgoak9UBwvgSumVlqpaeTt5NOvWrnjFdXRVgAgB+lXIt6wSvWLbg5fPE7muIgzTOonm2kae4lughDR3j4="
 
@@ -79,7 +79,7 @@ script:
         echo && \
         cd .. && \
         export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 && \
-        sonar-scanner -Dsonar.projectKey=pocketpiglet_pocketpiglet-android \
+        sonar-scanner -Dsonar.projectKey=pocketpiglet-mobile_pocketpiglet-android \
                       -Dsonar.projectName="PocketPiglet Android" \
                       -Dsonar.sources=. \
                       -Dsonar.sourceEncoding=UTF-8 \
