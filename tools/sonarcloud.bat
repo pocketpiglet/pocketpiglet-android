@@ -21,9 +21,9 @@ IF NOT "%~1"=="" (
      && make.exe install INSTALL_ROOT=android-build ^
      && androiddeployqt.exe --input android-libpocketpiglet.so-deployment-settings.json --output android-build --android-platform "%ANDROID_PLATFORM%" --deployment bundled --gradle --no-gdbserver ^
      && CD .. ^
-     && sonar-scanner.bat -D"sonar.projectKey=pocketpiglet-mobile_pocketpiglet-android" ^
+     && sonar-scanner.bat -D"sonar.projectKey=pocketpiglet_pocketpiglet-android" ^
                           -D"sonar.projectName=PocketPiglet Android" ^
-                          -D"sonar.organization=pocketpiglet-mobile-github" ^
+                          -D"sonar.organization=pocketpiglet-github" ^
                           -D"sonar.sources=." ^
                           -D"sonar.sourceEncoding=UTF-8" ^
                           -D"sonar.exclusions=3rdparty/**/*,qml/**/*,translations/*" ^
