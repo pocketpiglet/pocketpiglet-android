@@ -144,7 +144,7 @@ void VoiceRecorder::handleAudioInputDeviceReadyRead()
             int                      sample_rate  = AudioInput->format().sampleRate();
             int                      sample_size  = AudioInput->format().sampleSize();
             QAudioFormat::SampleType sample_type  = AudioInput->format().sampleType();
-            int                      frame_length = (sample_rate / 1000) * 30;
+            int                      frame_length = (sample_rate / 1000) * 10;
             int                      frame_bytes  = frame_length * (sample_size / 8);
 
             if (AudioBuffer.size() >= frame_bytes) {
