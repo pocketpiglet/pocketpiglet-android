@@ -156,7 +156,7 @@ void VoiceRecorder::handleAudioInputDeviceReadyRead()
 
                         if (sample_size == 16 && sample_type == QAudioFormat::SignedInt) {
                             for (int i = 0; i < frame_length; i++) {
-                                audio_data_16bit[i] = static_cast<int16_t>((static_cast<quint16>(AudioBuffer[p + i * 2 + 1]) * 256) + static_cast<quint8>(AudioBuffer[p + i * 2]));
+                                audio_data_16bit[i] = static_cast<qint8>(AudioBuffer[p + i * 2 + 1]) * static_cast<qint16>(256) + static_cast<quint8>(AudioBuffer[p + i * 2]);
                             }
                         } else {
                             for (int i = 0; i < frame_length; i++) {
