@@ -302,7 +302,7 @@ void VoiceRecorder::CreateVAD()
         emit error(QStringLiteral("Cannot create WebRtcVad instance"));
     } else if (WebRtcVad_Init(VadInstance)) {
         emit error(QStringLiteral("Cannot initialize WebRtcVad instance"));
-    } else if (WebRtcVad_set_mode(VadInstance, 0)) {
+    } else if (WebRtcVad_set_mode(VadInstance, 3)) {
         emit error(QStringLiteral("Cannot set mode for WebRtcVad instance"));
     }
 }
