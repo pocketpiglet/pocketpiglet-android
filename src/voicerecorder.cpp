@@ -164,7 +164,7 @@ void VoiceRecorder::handleAudioInputDeviceReadyRead()
                             }
                         }
 
-                        if (WebRtcVad_Process(VadInstance, sample_rate, audio_data_16bit.data(), frame_length) > 0) {
+                        if (WebRtcVad_Process(VadInstance, sample_rate, audio_data_16bit.data(), static_cast<size_t>(frame_length)) > 0) {
                             VoiceBuffer.append(AudioBuffer.mid(p, frame_bytes));
 
                             SilenceLength = 0;
